@@ -1,7 +1,9 @@
 <Solution>
+
   <Project Path="Labs.API/Labs.API.csproj" Id="a713ab06-322d-4214-aa1d-9d7c664d52e6" />
   <Project Path="Labs.Blazor/Labs.Blazor.csproj" Id="c6a5764d-a6e0-4238-92ad-862271d2c5be" />
   <Project Path="Labs.Domain/Labs.Domain.csproj" Id="fd4d5b40-bc70-491c-b15a-5eadddff562c" />
   <Project Path="Labs.Tests/Labs.Tests.csproj" Id="1412c5ce-41b7-4bed-8d69-3a76c50b7dab" />
   <Project Path="Labs.UI/Labs.UI.csproj" />
+
 </Solution>
