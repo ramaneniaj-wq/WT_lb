@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. ВСЕ регистрации сервисов ДО Build()
+// 1. Г‚Г‘Г… Г°ГҐГЈГЁГ±ГІГ°Г Г¶ГЁГЁ Г±ГҐГ°ГўГЁГ±Г®Гў Г„ГЋ Build()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("LabsDb"));
 
@@ -17,13 +17,13 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// КОНФИГУРАЦИЯ CORS (КРИТИЧЕСКИ ВАЖНО для Blazor)
+// ГЉГЋГЌГ”Г€ГѓГ“ГђГЂГ–Г€Гџ CORS (ГЉГђГ€Г’Г€Г—Г…Г‘ГЉГ€ Г‚ГЂГ†ГЌГЋ Г¤Г«Гї Blazor)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorApp",
         policy =>
         {
-            // Разрешаем запросы от адреса, на котором работает ваше Blazor-приложение
+            // ГђГ Г§Г°ГҐГёГ ГҐГ¬ Г§Г ГЇГ°Г®Г±Г» Г®ГІ Г Г¤Г°ГҐГ±Г , Г­Г  ГЄГ®ГІГ®Г°Г®Г¬ Г°Г ГЎГ®ГІГ ГҐГІ ГўГ ГёГҐ Blazor-ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГҐ
             policy.WithOrigins("https://localhost:7002",
                                "https://localhost:7003",
                                "http://localhost:5002",
@@ -35,10 +35,10 @@ builder.Services.AddCors(options =>
         });
 });
 
-// 2. ТОЛЬКО ПОСЛЕ ВСЕХ Add... вызываем Build()
+// 2. Г’ГЋГ‹ГњГЉГЋ ГЏГЋГ‘Г‹Г… Г‚Г‘Г…Г• Add... ГўГ»Г§Г»ГўГ ГҐГ¬ Build()
 var app = builder.Build();
 
-// 3. Конфигурация конвейера запросов (Middleware)
+// 3. ГЉГ®Г­ГґГЁГЈГіГ°Г Г¶ГЁГї ГЄГ®Г­ГўГҐГ©ГҐГ°Г  Г§Г ГЇГ°Г®Г±Г®Гў (Middleware)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -47,7 +47,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// АКТИВАЦИЯ политики CORS (должно стоять до UseAuthorization и MapControllers)
+// ГЂГЉГ’Г€Г‚ГЂГ–Г€Гџ ГЇГ®Г«ГЁГІГЁГЄГЁ CORS (Г¤Г®Г«Г¦Г­Г® Г±ГІГ®ГїГІГј Г¤Г® UseAuthorization ГЁ MapControllers)
 app.UseCors("AllowALL");
 
 app.UseAuthorization();
@@ -57,7 +57,7 @@ app.Use(async (context, next) =>
     Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path}");
     await next();
 });
-// Инициализация базы данных
+//РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р‘Р”
 await DbInitializer.SeedData(app);
 
 app.Run();
