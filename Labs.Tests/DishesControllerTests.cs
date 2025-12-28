@@ -60,6 +60,7 @@ namespace Labs.Tests
         AppDbContext CreateContext() => new AppDbContext(_contextOptions);
 
         // Проверка фильтра по категории
+        
         [Fact]
         public async Task ControllerFiltersCategory()
         {
