@@ -18,7 +18,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // КОНФИГУРАЦИЯ CORS (КРИТИЧЕСКИ ВАЖНО для Blazor)
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorApp",
