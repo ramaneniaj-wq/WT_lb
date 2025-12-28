@@ -1,4 +1,3 @@
-// Labs.UI/Program.cs - ОБНОВЛЕННЫЙ ВЕСЬ ФАЙЛ
 using Labs.UI.Data;
 using Labs.UI.Services;
 using Labs.UI.Services.Contracts;
@@ -11,7 +10,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Настройка Serilog
+// РќР°СЃС‚СЂРѕР№РєР° Serilog
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
@@ -35,7 +34,7 @@ try
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-    // Регистрация API сервисов
+    // Р РµРіРёСЃС‚СЂР°С†РёСЏ API СЃРµСЂРІРёСЃРѕРІ
     builder.Services.AddHttpClient<ICategoryService, ApiCategoryService>(client =>
     {
         client.BaseAddress = new Uri("https://localhost:7002/api/categories/");
@@ -46,7 +45,7 @@ try
         client.BaseAddress = new Uri("https://localhost:7002/api/dishes/");
     });
 
-    // Для тэг-хелперов
+    // Р”Р»СЏ С‚СЌРі-С…РµР»РїРµСЂРѕРІ
     builder.Services.AddHttpContextAccessor();
 
     builder.Services.AddAuthorization(opt =>
@@ -57,7 +56,7 @@ try
 
     builder.Services.AddSingleton<IEmailSender, NoOpEmailSender>();
 
-    // Добавление сессий
+    // Р”РѕР±Р°РІР»РµРЅРёРµ СЃРµСЃСЃРёР№
     builder.Services.AddDistributedMemoryCache();
     builder.Services.AddSession(options =>
     {
@@ -70,7 +69,7 @@ try
 
     var app = builder.Build();
 
-    // Настройка HTTP request pipeline
+    // РќР°СЃС‚СЂРѕР№РєР° HTTP request pipeline
     if (app.Environment.IsDevelopment())
     {
         app.UseMigrationsEndPoint();
@@ -105,7 +104,7 @@ try
 
     app.MapRazorPages();
 
-    // Создаем базу данных и администратора
+    // РЎРѕР·РґР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С… Рё Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
