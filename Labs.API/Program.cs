@@ -17,13 +17,14 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ÊÎÍÔÈÃÓÐÀÖÈß CORS (ÊÐÈÒÈ×ÅÑÊÈ ÂÀÆÍÎ äëÿ Blazor)
+// КОНФИГУРАЦИЯ CORS (КРИТИЧЕСКИ ВАЖНО для Blazor)
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorApp",
         policy =>
         {
-            // Ðàçðåøàåì çàïðîñû îò àäðåñà, íà êîòîðîì ðàáîòàåò âàøå Blazor-ïðèëîæåíèå
+            // Разрешаем запросы от адреса, на котором работает ваше Blazor-приложение
             policy.WithOrigins("https://localhost:7002",
                                "https://localhost:7003",
                                "http://localhost:5002",
@@ -35,10 +36,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-// 2. ÒÎËÜÊÎ ÏÎÑËÅ ÂÑÅÕ Add... âûçûâàåì Build()
+// 2. После всех Add... вызываем Build()
+
 var app = builder.Build();
 
-// 3. Êîíôèãóðàöèÿ êîíâåéåðà çàïðîñîâ (Middleware)
+// 3. Конфигурация конвейера запросов (Middleware)
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -47,7 +50,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// ÀÊÒÈÂÀÖÈß ïîëèòèêè CORS (äîëæíî ñòîÿòü äî UseAuthorization è MapControllers)
+// АКТИВАЦИЯ политики CORS (должно стоять до UseAuthorization и MapControllers)
+
 app.UseCors("AllowALL");
 
 app.UseAuthorization();
