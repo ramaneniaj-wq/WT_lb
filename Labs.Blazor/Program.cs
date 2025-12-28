@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Логирование
+// Р›РѕРіРёСЂРѕРІР°РЅРёРµ
 builder.Services.AddLogging(logging =>
 {
     logging.AddConsole();
@@ -16,10 +16,10 @@ builder.Services.AddLogging(logging =>
     logging.SetMinimumLevel(LogLevel.Debug);
 });
 
-// HttpClient для ApiProductService
+// HttpClient РґР»СЏ ApiProductService
 builder.Services.AddHttpClient<ApiProductService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7002/");  // ТОЛЬКО БАЗОВЫЙ URL
+    client.BaseAddress = new Uri("https://localhost:7002/");  // РўРѕР»СЊРєРѕ Р±Р°Р·РѕРІС‹Р№ URL
     client.DefaultRequestHeaders.Add("Accept", "application/json");
     client.DefaultRequestHeaders.Add("User-Agent", "Labs.Blazor");
 })
@@ -28,7 +28,7 @@ builder.Services.AddHttpClient<ApiProductService>(client =>
     ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
 });
 
-// Общий HttpClient для тестовых страниц
+// РћР±С‰РёР№ HttpClient РґР»СЏ С‚РµСЃС‚РѕРІС‹С… СЃС‚СЂР°РЅРёС†
 builder.Services.AddHttpClient("General", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7002/");
@@ -38,10 +38,12 @@ builder.Services.AddHttpClient("General", client =>
 {
     ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
 });
-// Регистрация сервиса
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРёСЃР°
+
 builder.Services.AddScoped<IProductService<BlazorDishModel>, ApiProductService>();
 
-// Регистрация HttpClient для инжекции в компоненты
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ HttpClient РґР»СЏ РёРЅР¶РµРєС†РёРё РІ РєРѕРјРїРѕРЅРµРЅС‚С‹
+
 builder.Services.AddScoped(sp =>
 {
     var factory = sp.GetRequiredService<IHttpClientFactory>();
