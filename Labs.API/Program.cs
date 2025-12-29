@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. ÂÑÅ ðåãèñòðàöèè ñåðâèñîâ ÄÎ Build()
+// 1. ВСЕ регистрации сервисов до Build()
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("LabsDb"));
 
