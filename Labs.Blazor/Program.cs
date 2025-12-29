@@ -1,7 +1,6 @@
 using Labs.Blazor;
 using Labs.Blazor.Services;
 using Microsoft.AspNetCore.Components;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -29,6 +28,7 @@ builder.Services.AddHttpClient<ApiProductService>(client =>
 });
 
 // Общий HttpClient для тестовых страниц
+
 builder.Services.AddHttpClient("General", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7002/");
